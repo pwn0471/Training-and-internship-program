@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather api</title>
+</head>
+<body>
+    <h2>wather information</h2>
+    <button onclick=" getweather()">get weather</button>
+    <p id="output"></p>
+    <script>
+        async function getweather(){
+            const output = document.getElementById("output");
+            try{
+                const response = await fetch("www.google.com");
+                const data = await response.json();
+                console.log("all the data ;", data)
+                const weather = data.current_weather;
+                output.innerHTML = `
+                Temperature: $(weather.Temperature) C <br>
+                 wind speed: $(weather.windspeed) km <br>
+                 weather code : $(weather.weathercode) 
+
+                `;
+            }catch (error){
+                output.textContent = "failed ";
+                console.error(error);
+
+            }
+        }
+    </script>
+</body>
+</html>

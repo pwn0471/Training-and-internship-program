@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h2, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <h2>Hello i am learning JS</h2>
+    <button onclick=""runExample()"> runExample</button>
+</body>
+<script >
+    function runExample(){
+        console.log("==== CALLBACK EX");
+        //callback
+        function fetchDataCallback(callback){
+            setTimeout(() =>{
+                callback("callback data fetcher");
+            }, 2000)
+        }
+
+        fetchDataCallback((message)=>{
+            console.log(message);
+            console.log("callback: processing data");
+        });
+
+        console.log("=== promise example");
+        function fetchDatapromise(){
+            return new Promise ( resolve, reject)=>{
+                setTimeout(()=>{
+                    resolve("promise: data fetched");
+                }, 2000);
+
+            });
+        }
+        fetchDatapromise()
+        .then((message)=>{
+            console.log(message);
+            console.log("provide: processing data");
+        })
+        .catch((error)=>{
+            console.log(error);
+
+
+        });
+        console.log("=== async/await");
+        async function fetchDataasync(){
+            try{
+                const message = await fetchDatapromise();
+                console.log("async/await :",message);
+                console.log("sync/await  processing data")
+            }catch(error){
+                console.log(error);
+             }
+        }
+        fetchDataasync();
+    }
+
+</script>
+</html>

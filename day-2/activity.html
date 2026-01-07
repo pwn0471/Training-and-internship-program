@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> api activity</title>
+</head>
+<body>
+    <h2>wather information</h2>
+
+    <input type="number" placeholder="enter lat" id="lat">
+    <input type="number" placeholder="enter long" id="long">
+    <button onclick=" getweather()">get weather</button>
+    <p id="output"></p>
+   
+   <script>
+        async function getweather(){
+
+            const lat=document.getElementById("lat").value;
+            const long = document.getElementById("long").value;
+            
+            const output = document.getElementById("output");
+
+
+            try{
+                const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=22.57&longitude=88.36&current_weather=true");
+                const data = await response.json();
+                //console.log("all the data ;", data)
+                const weather = data.current_weather;
+
+                const  temperature = weather.temperature;
+                const windspeed = weather.windspeed;
+                const weathercode = weather.weathercode;
+
+                console.log("temp :" ,temperature);
+                console.log("windspeed :", windspeed);
+                console.log("weathercode:" , weathercode);
+                output.innerHTML = `
+                Temperature: ${weather.temperature} C <br>
+                 wind speed: ${weather.windspeed} km <br>
+                 weather code : ${weather.weathercode}
+
+                `;
+            }catch (error){
+                output.textContent = "failed ";
+                console.error(error);
+
+            }
+        }
+    </script>
+</body>
+</html>
